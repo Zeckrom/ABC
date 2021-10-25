@@ -1,0 +1,9 @@
+{
+  "lastRun": "1635173281404-admin.ts",
+  "migrations": [
+    {
+      "title": "1635173281404-admin.ts",
+      "timestamp": 1635174072878
+    }
+  ]
+}
