@@ -12,7 +12,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint '{src,apps,libs,test}/**/*.ts' --fix",
-    "test": "jest",
+    "test": "jest --config ./jest.config.js",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
@@ -46,7 +46,7 @@
   "devDependencies": {
     "@nestjs/cli": "7.6.0",
     "@nestjs/schematics": "7.3.1",
-    "@nestjs/testing": "7.6.15",
+    "@nestjs/testing": "^8.1.2",
     "@types/express": "4.17.12",
     "@types/mongoose": "5.11.96",
     "@types/node": "14.17.4",

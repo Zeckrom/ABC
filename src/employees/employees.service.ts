@@ -20,8 +20,9 @@ export class EmployeesService {
     return createdEmployee.save();
   }
 
-  findAll(date: string) {
+  findAll(date: string): Promise<Employee[]> {
     if (date) {
+      // If a date is privded, we will fetch employees in the range between the 2 edges of the day.
       return this.employeeModel.find({
         createdAt: {
           $gte: startOfDay(new Date(date)),
@@ -29,6 +30,7 @@ export class EmployeesService {
         }
       }).exec();
     } else {
+      // If no date is provided, all employees will be returned.
       return this.employeeModel.find().exec();
     }
 
@@ -42,7 +44,9 @@ export class EmployeesService {
         throw new HttpException('Please checkout before checking in again.', 400);
       }
     }
+    // Creating a new session
     employee.currentSession = new this.sessionModel();
+    // Checking in with current date and time
     employee.currentSession.checkIn = new Date();
     if (checkInDto.comment) {
       employee.currentSession.comment = checkInDto.comment;
@@ -53,13 +57,16 @@ export class EmployeesService {
   async checkOut(id: string, checkOutDto: CheckOutDto): Promise<Employee> {
     const employee = await this.employeeModel.findById(id);
     if (!employee.currentSession?.checkIn) {
+      // If there is a current active session and the employee hasn't checked out yet, an error is thrown.
       throw new HttpException('Please check in before checking out.', 400);
     }
     const checkOutDate = new Date();
+    // duration is stored in the database in timestamps
     const duration = checkOutDate.getTime() - new Date(employee.currentSession.checkIn).getTime()
-
+    // creating new session to push in existing sessions.
     const session = new this.sessionModel({ checkIn: employee.currentSession.checkIn, checkOut: checkOutDate, comment: checkOutDto.comment, duration })
     employee.sessions.push(session)
+    // Emptying the current session for future checkIns
     employee.currentSession = new this.sessionModel()
     return employee.save()
 

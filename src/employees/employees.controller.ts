@@ -11,14 +11,17 @@ import { Role } from "src/common/enums/role.enum";
 export class EmployeesController {
   constructor(private readonly employeesService: EmployeesService) { }
 
-  // @UseGuards(AuthGuard('jwt'))
-  // @Roles(Role.ADMIN)
+  @UseGuards(AuthGuard('jwt'))
+  @Roles(Role.ADMIN)
   @Post()
   async create(@Body() createEmployeeDto: CreateEmployeeDto) {
     const created = await this.employeesService.create(createEmployeeDto);
     return created
   }
 
+  // This route requires authentication (jwt) and the user having ADMIN role
+  @UseGuards(AuthGuard('jwt'))
+  @Roles(Role.ADMIN)
   @Get('/:date?')
   async findAll(@Param('date') date: string) {
     return await this.employeesService.findAll(date);

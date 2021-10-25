@@ -15,7 +15,7 @@ export class UsersController {
         return createdUser;
     }
 
-    // @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard('jwt'))
     @Get()
     async findAll(): Promise<User[]> {
         return this.usersService.findAll();
