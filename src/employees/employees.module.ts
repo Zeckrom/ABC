@@ -6,8 +6,7 @@ import { Employee, EmployeeSchema, Session, SessionSchema } from './schemas/empl
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Employee.name, schema: EmployeeSchema }]),
-    MongooseModule.forFeature([{ name: Session.name, schema: SessionSchema }]),
+    MongooseModule.forFeature([{ name: Employee.name, schema: EmployeeSchema }, { name: Session.name, schema: SessionSchema }]),
   ],
   controllers: [EmployeesController],
   providers: [EmployeesService]

@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { CatsModule } from './cats/cats.module';
 import { UsersModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { AppController } from './app.controller';
@@ -18,7 +17,6 @@ import { EmployeesModule } from './employees/employees.module';
       }),
       inject: [ConfigService],
     }),
-    CatsModule,
     AuthModule,
     UsersModule,
     EmployeesModule,
