@@ -10,7 +10,7 @@
 
 ### Before running
 
-Run migration to create adming user
+Run migration to create admin user
 `npm run migrate:up`
 
 ### Running
